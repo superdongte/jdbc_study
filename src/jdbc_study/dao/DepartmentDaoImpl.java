@@ -23,6 +23,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
 		try (Connection conn = MySQLJdbcUtil.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery()) {
+			LOG.debug(pstmt);
 			while (rs.next()) {
 				list.add(getDepatment(rs));
 			}
@@ -37,6 +38,21 @@ public class DepartmentDaoImpl implements DepartmentDao {
 		String deptname = rs.getString("deptname");
 		int floor = rs.getInt("floor");
 		return new Department(deptno, deptname, floor);
+	}
+	@Override
+	public int insertDepartment(Department department) throws SQLException {
+		String sql = "insert into department values(?,?,?)";
+		int res = 0;
+		
+		try(Connection conn = MySQLJdbcUtil.getConnection();
+			 	PreparedStatement pstmt = conn.prepareStatement(sql);){
+				pstmt.setInt(1, department.getDeptNo());
+				pstmt.setString(2, department.getDeptName());
+				pstmt.setInt(3, department.getFloor());
+				LOG.debug(pstmt);
+				res = pstmt.executeUpdate();
+		}			
+		return res;
 	}
 
 }

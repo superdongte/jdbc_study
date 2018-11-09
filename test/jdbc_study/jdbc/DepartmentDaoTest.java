@@ -1,6 +1,9 @@
 package jdbc_study.jdbc;
 
+import java.sql.SQLException;
 import java.util.List;
+
+import javax.swing.JOptionPane;
 
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -32,6 +35,20 @@ public class DepartmentDaoTest {
 			MYSQLJdbcUtilTest.LOG.debug(dept);
 		}
 		Assert.assertNotEquals(0, list.size());
+	}
+	@Test
+	public void testInsertDepartment() {
+		Department newDept = new Department(4, "잡아 과정", 15);
+		try {
+			int res =dao.insertDepartment(newDept);
+			Assert.assertNotEquals(1, res);
+		} catch (SQLException e) {
+			System.out.println(e.getErrorCode());
+			e.printStackTrace();
+			if(e.getErrorCode()==1062) {
+				JOptionPane.showMessageDialog(null, "해당부서 존재한다.");
+			}
+		}
 	}
 
 }
