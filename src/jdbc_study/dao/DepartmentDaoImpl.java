@@ -54,5 +54,33 @@ public class DepartmentDaoImpl implements DepartmentDao {
 		}			
 		return res;
 	}
-
+	@Override
+	public int deleteDepartment(Department department) throws SQLException {
+		String sql2 = "Delete from department where deptno=?";
+		int res1 = 0;
+		
+		try(Connection conn = MySQLJdbcUtil.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql2);){
+				pstmt.setInt(1, department.getDeptNo());	
+				LOG.debug(pstmt);
+				res1 = pstmt.executeUpdate();
+		}
+		return res1;
+	}
+	@Override
+	public int updateDepartment(Department department) throws SQLException {
+		String sql3 =  "update department set deptno=? "
+				+ "";
+		int res2 = 0;
+		
+	//	try(Connection conn = MySQLJdbcUtil.getConnection())
+		
+		return 0;
+	}
+	@Override
+	public Department selectDepartmentByNo(Department department) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }
