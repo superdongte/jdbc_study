@@ -39,7 +39,7 @@ public class DepartmentDaoTest {
 		}
 		Assert.assertNotEquals(0, list.size());
 	}
-/*	@Test
+	@Test
 	public void test02InsertDepartment() {
 		Department newDept = new Department(4, "잡아 과정", 15);
 		try {
@@ -52,7 +52,7 @@ public class DepartmentDaoTest {
 				JOptionPane.showMessageDialog(null, "해당부서 존재한다.");
 			}
 		}
-	}*/
+	}
 	@Test
 	public void test04DeleteDepartment() {
 		Department delDept = new Department(4);
@@ -66,11 +66,22 @@ public class DepartmentDaoTest {
 	}
 	@Test
 	public void test03UpdateDepartment() {
-		
+		Department setDept = new Department(4,"건담아아아아",10);
+		try {
+			int res =dao.updateDepartment(setDept);
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Test
-	public void test05UpdateDepartmentByNo() {
-		
+	public void test05SelectDepartmentByNo() {
+		Department newDept = new Department(1);
+		try {
+			Department res = dao.selectDepartmentByNo(newDept);
+			JOptionPane.showMessageDialog(null, res);
+		}catch(SQLException e) {
+			JOptionPane.showMessageDialog(null, "검색 실패");
+		}
 	}
 }
